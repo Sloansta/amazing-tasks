@@ -9,6 +9,9 @@ function updateTime() {
     checkPastFuture();
 }
 
+
+// add buttons for each time block 
+// commit this tomorrow 
 function initWorkTime() {
     for(let i = 9; i < 18; i++) {
          timeContainersEl[i] = document.createElement("div");
@@ -32,7 +35,7 @@ function initWorkTime() {
 function checkPastFuture() {
     for(let i = 0; i < timeContainersEl.length; i++) {
         if(i > moment().hour()) {
-            $(timeContainerEl[i]).addClass("bg-success");
+            $(timeContainersEl[i]).addClass("bg-success");
             console.log("future")
         }else if(i == moment().hour()) {
             $(timeContainersEl[i]).addClass("bg-danger");
