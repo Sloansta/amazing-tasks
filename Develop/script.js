@@ -34,9 +34,11 @@ function checkPastFuture() {
         if(i > moment().hour()) {
             $(timeContainerEl[i]).addClass("bg-success");
             console.log("future")
-        }else if(i < moment().hour()) {
+        }else if(i == moment().hour()) {
             $(timeContainersEl[i]).addClass("bg-danger");
-            console.log("past");
+            console.log("present");
+        }else if(i < moment().hour()) {
+            $(timeContainersEl[i]).addClass("bg-secondary");
         }
     }
 }
