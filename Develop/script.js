@@ -5,16 +5,17 @@ let timeFormEl = [];
 
 function updateTime() {
     let date = moment();
-    currentDate.textContent = date.format("dddd, MMMM Do YYYY");
-
+    currentDate.text(date);
+    checkPastFuture();
 }
 
 function initWorkTime() {
     for(let i = 9; i < 18; i++) {
          timeContainersEl[i] = document.createElement("div");
-         timeContainersEl[i].classList = "time-block row hour";
+         timeContainersEl[i].classList = "time-block row text-light " + i.toString();
          workHours.append(timeContainersEl[i]);
          timeFormEl[i] = document.createElement("form");
+         $(timeFormEl[i]).addClass("text-light")
          let inputArea = document.createElement("textarea");
          inputArea.className = "description"
 
@@ -28,6 +29,19 @@ function initWorkTime() {
     }
 }
 
+function checkPastFuture() {
+    for(let i = 0; i < timeContainersEl.length; i++) {
+        if(i > moment().hour()) {
+            $(timeContainerEl[i]).addClass("bg-success");
+            console.log("future")
+        }else if(i < moment().hour()) {
+            $(timeContainersEl[i]).addClass("bg-danger");
+            console.log("past");
+        }
+    }
+}
+
 initWorkTime();
+checkPastFuture();
 
 setInterval(updateTime, 1000);
