@@ -15,12 +15,9 @@ function initWorkTime() {
          timeContainersEl[i].classList = "time-block row hour " + i.toString();
          workHours.append(timeContainersEl[i]);
          timeFormEl[i] = document.createElement("form");
-         $(timeFormEl[i]).addClass("text-light")
+         $(timeFormEl[i]).addClass("text-light time-form")
          let inputArea = document.createElement("textarea");
          $(inputArea).addClass("description");
-         let saveBtn = document.createElement("button");
-         $(saveBtn).addClass("saveBtn");
-         $(saveBtn).text("save");
 
          if(i < 10) {
             timeContainersEl[i].innerHTML = "<h2>0" + i + ":00 </h2>"
@@ -29,7 +26,7 @@ function initWorkTime() {
          }
          
          $(timeFormEl[i]).append(inputArea);
-         $(timeFormEl[i]).append(saveBtn);
+         //$(timeContainersEl[i]).append(saveBtn);
          $(timeContainersEl[i]).append(timeFormEl[i]);
     }
 
@@ -50,9 +47,17 @@ function checkPastFuture() {
 }
 
 // get this working tomorrow 
-$(".saveBtn").submit((event) => {
-    console.log("Hello");
+$(".description").on("blur", () => {
+   let text = $(this).val().trim();
+   let index = $(this).closest(".time-form").index();
+   $(timeFormEl[index]).find(".description").val(text);
+   saveToLocal($(timeFormEl[index]).find(".description").val(text));
 });
+
+function saveToLocal(saveItem) {
+    //localStorage.setItem("time-save", JSON.stringify(saveItem));
+    console.log("called")
+}
 
 initWorkTime();
 checkPastFuture();
