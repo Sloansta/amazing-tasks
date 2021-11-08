@@ -19,7 +19,7 @@ function initWorkTime() {
          $(timeFormEl[i]).addClass("text-light time-form")
          inputArea[i] = document.createElement("textarea");
          $(inputArea[i]).addClass("description " + i.toString());
-         $(inputArea[i]).attr("id", i);
+         $(inputArea[i]).attr("id", i.toString());
 
          if(i < 10) {
             timeContainersEl[i].innerHTML = "<h2>0" + i + ":00 </h2>"
@@ -54,8 +54,7 @@ $(".save-btn").on("click", () => {
         console.log(i + " works!");
         let hourlyIndex = $(inputArea[i]).val();
         console.log(hourlyIndex);
-        if($(inputArea[i]).val() != "")
-            saveToLocal($(inputArea[i]).val(), i);
+        saveToLocal($(inputArea[i]).val(), i);
     }
 });
 
@@ -63,7 +62,15 @@ function saveToLocal(saveItem, index) {
     localStorage.setItem(index.toString(), saveItem);
 }
 
+function loadFromLocal() {
+    for(let i = 9; i < inputArea.length; i++) {
+        let value = localStorage.getItem(i.toString());
+        $(inputArea[i]).val(value);
+    }
+}
+
 initWorkTime();
 checkPastFuture();
+loadFromLocal();
 
 setInterval(updateTime, 1000);
