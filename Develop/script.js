@@ -2,6 +2,7 @@ let currentDate = $("#currentDay");
 let workHours = $("#day-container");
 let timeContainersEl = [];
 let timeFormEl = [];
+let inputArea = [];
 
 function updateTime() {
     let date = moment();
@@ -16,8 +17,9 @@ function initWorkTime() {
          workHours.append(timeContainersEl[i]);
          timeFormEl[i] = document.createElement("form");
          $(timeFormEl[i]).addClass("text-light time-form")
-         let inputArea = document.createElement("textarea");
-         $(inputArea).addClass("description");
+         inputArea[i] = document.createElement("textarea");
+         $(inputArea[i]).addClass("description " + i.toString());
+         $(inputArea[i]).attr("id", i);
 
          if(i < 10) {
             timeContainersEl[i].innerHTML = "<h2>0" + i + ":00 </h2>"
@@ -25,7 +27,7 @@ function initWorkTime() {
              timeContainersEl[i].innerHTML = "<h2>" + i + ":00 </h2>"
          }
          
-         $(timeFormEl[i]).append(inputArea);
+         $(timeFormEl[i]).append(inputArea[i]);
          //$(timeContainersEl[i]).append(saveBtn);
          $(timeContainersEl[i]).append(timeFormEl[i]);
     }
@@ -33,7 +35,7 @@ function initWorkTime() {
 }
 
 function checkPastFuture() {
-    for(let i = 0; i < timeContainersEl.length; i++) {
+    for(let i = 9; i < timeContainersEl.length; i++) {
         if(i > moment().hour()) {
             $(timeContainersEl[i]).addClass("future");
             console.log("future")
@@ -47,16 +49,18 @@ function checkPastFuture() {
 }
 
 // get this working tomorrow 
-$(".description").on("blur", () => {
-   let text = $(this).val().trim();
-   let index = $(this).closest(".time-form").index();
-   $(timeFormEl[index]).find(".description").val(text);
-   saveToLocal($(timeFormEl[index]).find(".description").val(text));
+$(".save-btn").on("click", () => {
+    for(let i = 9; i < inputArea.length; i++) {
+        console.log(i + " works!");
+        let hourlyIndex = $(inputArea[i]).val();
+        console.log(hourlyIndex);
+        if($(inputArea[i]).val() != "")
+            saveToLocal($(inputArea[i]).val(), i);
+    }
 });
 
-function saveToLocal(saveItem) {
-    //localStorage.setItem("time-save", JSON.stringify(saveItem));
-    console.log("called")
+function saveToLocal(saveItem, index) {
+    localStorage.setItem(index.toString(), saveItem);
 }
 
 initWorkTime();
