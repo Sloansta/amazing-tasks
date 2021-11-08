@@ -48,7 +48,6 @@ function checkPastFuture() {
     }
 }
 
-// get this working tomorrow 
 $(".save-btn").on("click", () => {
     for(let i = 9; i < inputArea.length; i++) {
         console.log(i + " works!");
