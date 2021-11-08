@@ -1,1 +1,2 @@
-# Work Day Scheduler Starter Code
+# AmazingTasks 
+A simple scheduler for your busy work day
