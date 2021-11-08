@@ -1,2 +1,2 @@
-# Work Day Scheduler Starter Code
+# Busy 
 A simple scheduler for your busy work day
