@@ -56,6 +56,8 @@ $(".save-btn").on("click", () => {
         console.log(hourlyIndex);
         saveToLocal($(inputArea[i]).val(), i);
     }
+
+    window.location.reload();
 });
 
 function saveToLocal(saveItem, index) {
